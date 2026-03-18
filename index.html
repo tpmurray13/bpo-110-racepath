@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPO | 110 S Racepath St, Fayetteville, NC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #0B6B3A;
+  --dark: #1c1c1c;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --bg: #f5f7f7;
+  --page-w: 8.5in;
+  --page-h: 11in;
+  --page-pad: 0.55in;
+  --shadow: 0 10px 28px rgba(0,0,0,.12);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Toolbar */
+.toolbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,247,247,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+  display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;
+}
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: white; color: var(--dark);
+  padding: 9px 12px; border-radius: 10px;
+  font-weight: 600; font-size: 13px; cursor: pointer;
+}
+.btn.primary { border-color: var(--green); background: var(--green); color: white; }
+.btn:active { transform: translateY(1px); }
+
+/* Pages */
+.page {
+  width: var(--page-w);
+  min-height: var(--page-h);
+  margin: 18px auto;
+  background: white;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  padding: var(--page-pad);
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  opacity: .055;
+}
+.watermark img { width: 520px; max-width: 70%; }
+.page > * { position: relative; z-index: 2; }
+
+/* Header */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 2px solid var(--green);
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand img { width: 44px; height: 44px; object-fit: contain; }
+.brand .company {
+  font-size: 14px; font-weight: 800;
+  letter-spacing: .3px; text-transform: uppercase;
+  color: var(--green); margin: 0; line-height: 1.1;
+}
+.brand .tagline { font-size: 11px; color: var(--muted); margin: 0; line-height: 1.1; }
+.report-meta { text-align: right; font-size: 11px; color: var(--muted); line-height: 1.4; }
+.report-meta strong { color: var(--dark); }
+
+/* Titles */
+h1 { margin: 0; font-size: 22px; letter-spacing: .2px; }
+h2 { margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: .8px; color: var(--green); }
+h3 { margin: 0 0 8px 0; font-size: 13px; color: var(--dark); }
+p { margin: 0 0 10px 0; color: #2b2b2b; font-size: 12px; line-height: 1.45; }
+.muted { color: var(--muted); }
+
+/* Layout helpers */
+.grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr);
+  gap: 14px;
+  align-items: start;
+}
+.grid-2 > div { min-width: 0; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.card { border: 1px solid var(--border); border-radius: 14px; padding: 12px; background: #fff; }
+.card.soft { background: #fbfbfb; }
+.kvs { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px 12px; font-size: 12px; }
+.kvs.stack { grid-template-columns: 1fr; }
+.kv {
+  display: grid;
+  grid-template-columns: 130px minmax(0,1fr);
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px dashed #ececec;
+  min-width: 0;
+}
+.kv:last-child { border-bottom: none; }
+.kv .k { color: var(--muted); font-weight: 600; font-size: 11px; }
+.kv .v { font-weight: 600; color: var(--dark); min-width: 0; overflow-wrap: break-word; word-break: normal; }
+
+/* Photo / Aerial */
+.photo {
+  width: 100%; height: 255px;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: #f0f2f2;
+  display: flex; align-items: center; justify-content: center;
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo .ph { font-size: 12px; color: var(--muted); padding: 10px; text-align: center; }
+
+/* Price conclusion */
+.price-box {
+  border: 2px solid var(--green);
+  border-radius: 16px;
+  padding: 12px;
+  background: linear-gradient(180deg,rgba(11,107,58,.06),rgba(11,107,58,.02));
+}
+.price-top {
+  display: flex; align-items: baseline;
+  justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.price-top .label { text-transform: uppercase; letter-spacing: .9px; color: var(--green); font-weight: 800; font-size: 12px; }
+.price-top .bpo-type { font-size: 12px; color: var(--muted); font-weight: 700; }
+.big-number { font-size: 26px; font-weight: 900; color: var(--dark); letter-spacing: .2px; }
+.range { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+.inputs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+.field { min-width: 0; }
+.field label { display: block; font-size: 10px; color: var(--muted); font-weight: 700; letter-spacing: .4px; text-transform: uppercase; margin-bottom: 4px; }
+.field input, .field select {
+  width: 100%; border: 1px solid var(--border); border-radius: 10px;
+  padding: 9px 10px; font-size: 12px; font-weight: 700;
+  outline: none; background: white;
+}
+.field input:focus, .field select:focus {
+  border-color: rgba(11,107,58,.6);
+  box-shadow: 0 0 0 3px rgba(11,107,58,.12);
+}
+
+/* Tables */
+table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  font-size: 11px; overflow: hidden;
+  border: 1px solid var(--border); border-radius: 14px;
+}
+thead th {
+  background: rgba(11,107,58,.09); color: var(--dark);
+  text-align: left; padding: 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px; text-transform: uppercase; letter-spacing: .5px;
+}
+tbody td {
+  padding: 10px; border-bottom: 1px solid #f0f0f0;
+  vertical-align: top; white-space: normal;
+  overflow-wrap: break-word; word-break: normal; line-height: 1.35;
+}
+tbody tr:last-child td { border-bottom: none; }
+.td-num { text-align: right; white-space: nowrap; }
+.pill {
+  display: inline-block; padding: 3px 8px;
+  border-radius: 999px; border: 1px solid var(--border);
+  font-weight: 800; font-size: 10px; background: #fff; white-space: nowrap;
+}
+.pill.green { border-color: rgba(11,107,58,.35); background: rgba(11,107,58,.07); color: var(--green); }
+.pill.yellow { border-color: rgba(180,140,0,.4); background: rgba(255,230,0,.08); color: #7a6000; }
+
+/* Footer */
+.footer {
+  position: absolute;
+  left: var(--page-pad); right: var(--page-pad); bottom: 0.32in;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 12px; color: var(--muted); font-size: 10px;
+  border-top: 1px solid var(--border); padding-top: 10px;
+}
+.footer strong { color: var(--dark); }
+.footer .small { font-size: 9.5px; line-height: 1.35; }
+
+/* Stat cards */
+.stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
+.stat-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #fbfbfb;
+  text-align: center;
+}
+.stat-card .s-val { font-size: 18px; font-weight: 900; color: var(--dark); }
+.stat-card .s-lbl { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin-top: 2px; }
+
+/* Print */
+@page { size: letter; margin: 0; }
+@media print {
+  html, body { background: white; }
+  .toolbar { display: none !important; }
+  .page {
+    margin: 0; border: none; box-shadow: none;
+    width: var(--page-w); min-height: var(--page-h);
+    padding: var(--page-pad); overflow: hidden;
+    page-break-after: always;
+  }
+  .watermark { position: absolute; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="btn" onclick="editBpoType()">Sale / Lease</button>
+  <button class="btn" onclick="resetToDefaults()">Reset Defaults</button>
+  <button class="btn primary" onclick="window.print()">Export to PDF</button>
+</div>
+
+<!-- ===================== PAGE 1 ===================== -->
+<div class="page" id="page1">
+  <div class="watermark">
+    <img src="https://tpmurray13.github.io/bov116personst/gm-watermark.png" alt="GM watermark">
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">
+      <img src="https://tpmurray13.github.io/bov116personst/gm-logo.png" alt="Grant-Murray Real Estate logo">
+      <div>
+        <p class="company">Grant-Murray Real Estate, LLC</p>
+        <p class="tagline">Broker Price Opinion (BPO)</p>
+      </div>
+    </div>
+    <div class="report-meta">
+      <div><strong>Prepared by:</strong> Patrick Murray, CCIM, SIOR<br>
+      910.861.0449 | patrick@grantmurrayre.com<br>
+      NC #231098</div>
+      <div style="margin-top:4px;"><strong>Date:</strong> March 18, 2026</div>
+    </div>
+  </div>
+
+  <!-- Subject line -->
+  <h1>110 S Racepath St, Fayetteville, NC 28301</h1>
+  <p style="margin-top:4px;margin-bottom:12px;">Prepared For: <strong id="preparedFor">Cumberland County</strong></p>
+
+  <!-- Two-column: summary + aerial -->
+  <div class="grid-2" style="margin-bottom:14px;">
+    <div class="card soft">
+      <h2>Property Summary</h2>
+      <div class="kvs">
+        <div class="kv"><span class="k">Parcel ID</span><span class="v">0447-02-9017</span></div>
+        <div class="kv"><span class="k">Site Size</span><span class="v">1.78 Acres (77,537 SF)</span></div>
+        <div class="kv"><span class="k">Zoning</span><span class="v">HI (Heavy Industrial)</span></div>
+        <div class="kv"><span class="k">Land Use</span><span class="v">MISC</span></div>
+        <div class="kv"><span class="k">Building Size</span><span class="v">~1,800 SF (approx.)</span></div>
+        <div class="kv"><span class="k">Submarket</span><span class="v">Fayetteville Industrial</span></div>
+        <div class="kv"><span class="k">County</span><span class="v">Cumberland</span></div>
+        <div class="kv"><span class="k">Tax Amount (2025)</span><span class="v">$507</span></div>
+      </div>
+      <p style="margin-top:10px;font-size:11px;color:var(--muted);">A small auto body shop leases a portion of the site on a month-to-month or short-term basis. The remainder of the 1.78-acre parcel is open/unimproved land. The existing ~1,800 SF building is incidental to the land in this analysis.</p>
+    </div>
+    <!-- Aerial photo -->
+    <div class="photo">
+      <img
+        src="https://www.dropbox.com/scl/fi/x51tx8oqpbngj31jsy4gn/Screenshot-2026-03-18-153741.png?rlkey=vhwwgdzf1320hpdc9726yk319&raw=1"
+        alt="Aerial view of 110 S Racepath St"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <p class="ph" style="display:none;">Aerial photo could not be loaded.</p>
+    </div>
+  </div>
+
+  <!-- Price conclusion box -->
+  <div class="price-box" style="margin-bottom:14px;">
+    <div class="price-top">
+      <span class="label">Price Opinion &amp; Recommendation</span>
+      <span class="bpo-type">Type: <strong id="bpoTypeLabel">Sale</strong> &nbsp;|&nbsp; <em>Not an appraisal</em></span>
+    </div>
+    <div class="big-number" id="opinionPriceDisplay">$390,000</div>
+    <div class="range" id="opinionRangeDisplay">Suggested range: $350,000 &ndash; $425,000</div>
+    <div class="inputs">
+      <div class="field">
+        <label>Indicated $/Acre</label>
+        <input id="indicatedPerAcre" type="number" step="0.01" value="219101">
+      </div>
+      <div class="field">
+        <label>Indicated Price (1.78 ac)</label>
+        <input id="indicatedPrice" type="text" readonly value="$390,000">
+      </div>
+      <div class="field">
+        <label>Recommended List Price</label>
+        <input id="recommendedListPrice" type="text" value="$390,000">
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:11px;">
+      The opinion is primarily supported by <strong>408 S Racepath St</strong> (same street, HI zoning, arms-length) and
+      <strong>327 E Jenkins St</strong> (HI, similar size, arms-length) as the most directly comparable transactions.
+      Comps on Pine St (HI, larger tracts) and 908 North St provide additional bracketing. A modest positive
+      adjustment is applied relative to the smaller/lower-priced comps to reflect the subject&rsquo;s accessible location
+      on Racepath St and HI-zoned land demand.
+    </p>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:0;">This BPO is intended for decision-support only. It is not an appraisal and should not be relied upon as such.</p>
+  </div>
+
+  <!-- Comp stat summary -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="s-val">6</div>
+      <div class="s-lbl">Comps Reviewed</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-val">$219,101</div>
+      <div class="s-lbl">Avg $/Acre (weighted)</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-val">$100K &ndash; $507K</div>
+      <div class="s-lbl">$/Acre Range</div>
+    </div>
+  </div>
+
+  <!-- Location map -->
+  <div class="card" style="margin-bottom:60px;">
+    <h2>Location Map</h2>
+    <div style="width:100%;height:265px;border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+      <iframe
+        width="100%" height="100%"
+        style="border:0;"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=35.047100,-78.863250&z=16&output=embed">
+      </iframe>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="small"><strong>Grant-Murray Real Estate, LLC</strong><br>910.861.0449 | patrick@grantmurrayre.com | NC #231098</div>
+    <div class="small" style="text-align:right;"><strong>Prepared For:</strong> <span id="preparedForFooter">Cumberland County</span><br>Page 1</div>
+  </div>
+</div>
+<!-- END PAGE 1 -->
+
+
+<!-- ===================== PAGE 2 ===================== -->
+<div class="page" id="page2">
+  <div class="watermark">
+    <img src="https://tpmurray13.github.io/bov116personst/gm-watermark.png" alt="GM watermark">
+  </div>
+
+  <div class="header">
+    <div class="brand">
+      <img src="https://tpmurray13.github.io/bov116personst/gm-logo.png" alt="Grant-Murray Real Estate logo">
+      <div>
+        <p class="company">Grant-Murray Real Estate, LLC</p>
+        <p class="tagline">Broker Price Opinion (BPO)</p>
+      </div>
+    </div>
+    <div class="report-meta">
+      <div><strong>Subject:</strong> 110 S Racepath St, Fayetteville, NC</div>
+      <div><strong>Prepared For:</strong> <span id="preparedFor2">Cumberland County</span></div>
+      <div><strong>Date:</strong> March 18, 2026</div>
+    </div>
+  </div>
+
+  <h2>Property Description</h2>
+  <p>The subject is a 1.78-acre parcel located at 110 S Racepath St in Fayetteville, NC (Parcel ID: 0447-02-9017), zoned <strong>HI (Heavy Industrial)</strong>. The site contains an existing building of approximately <strong>1,800 SF</strong>, which is currently occupied on a partial, short-term basis by a small auto body shop tenant. The remainder of the parcel is open, unimproved land.</p>
+  <p>Given the minimal improvements relative to total site size, this analysis treats the parcel primarily as a <strong>land transaction</strong>, with the existing structure considered of incidental contributory influence on overall pricing. The 1.78-acre HI-zoned site is well-positioned for industrial or contractor uses common in this submarket.</p>
+  <p class="muted" style="font-size:11px;">Building size and parcel data per id.land and CoStar sources. All sizes approximate; verify prior to contract.</p>
+
+  <h2 style="margin-top:18px;">Submarket Notes</h2>
+  <p>The Fayetteville HI submarket includes properties along Racepath St, Eastern Blvd, Jenkins St, Murchison Rd, and Pine St corridors. HI-zoned land in this area has historically traded at a wide range of prices per acre depending on access, size, improvements, and intended use.</p>
+  <p>Recent arms-length HI sales indicate a relevant range of approximately <strong>$100,000&ndash;$210,000/acre</strong> for similarly sized parcels with modest or no improvements, with smaller, better-located or better-improved parcels trading at a premium above that range. The subject&rsquo;s Racepath St location and 1.78-acre scale fall within the mid-range of the comparable set.</p>
+
+  <h2 style="margin-top:18px;">Scope, Assumptions &amp; Limiting Conditions</h2>
+  <p>This Broker Price Opinion is prepared by Grant-Murray Real Estate, LLC for Cumberland County (the stated client) and is intended solely to support internal decision-making. It is <strong>not</strong> an appraisal, and no appraisal-level due diligence has been performed, including title review, survey review, environmental assessment, structural inspection, or measurement verification.</p>
+  <p>The analysis is based on information provided by or on behalf of the client, public records, id.land, and CoStar data believed reliable. Material changes to tenancy, zoning, site condition, encumbrances, or market conditions may impact the conclusions. The existence, terms, and enforceability of the existing auto body shop tenancy have not been independently verified and should be confirmed prior to any disposition action.</p>
+
+  <h2 style="margin-top:18px;">Disposition Notes</h2>
+  <p>If Cumberland County proceeds with a disposition of this parcel, marketing to industrial and contractor-user buyers active in the local submarket would be recommended. Given the HI zoning, likely buyer profiles include small contractors, auto-related users, storage/logistics operators, and investors seeking HI-zoned land in the Fayetteville market.</p>
+  <p>Specific listing terms, cooperating broker compensation, and marketing strategy to be determined in coordination with the County.</p>
+
+  <div class="footer">
+    <div class="small"><strong>Grant-Murray Real Estate, LLC</strong><br>910.861.0449 | patrick@grantmurrayre.com | NC #231098</div>
+    <div class="small" style="text-align:right;"><strong>Prepared For:</strong> <span id="preparedForFooter2">Cumberland County</span><br>Page 2</div>
+  </div>
+</div>
+<!-- END PAGE 2 -->
+
+
+<!-- ===================== PAGE 3 ===================== -->
+<div class="page" id="page3">
+  <div class="watermark">
+    <img src="https://tpmurray13.github.io/bov116personst/gm-watermark.png" alt="GM watermark">
+  </div>
+
+  <div class="header">
+    <div class="brand">
+      <img src="https://tpmurray13.github.io/bov116personst/gm-logo.png" alt="Grant-Murray Real Estate logo">
+      <div>
+        <p class="company">Grant-Murray Real Estate, LLC</p>
+        <p class="tagline">Broker Price Opinion (BPO)</p>
+      </div>
+    </div>
+    <div class="report-meta">
+      <div><strong>Subject:</strong> 110 S Racepath St, Fayetteville, NC</div>
+      <div><strong>Prepared For:</strong> <span id="preparedFor3">Cumberland County</span></div>
+      <div><strong>Date:</strong> March 18, 2026</div>
+    </div>
+  </div>
+
+  <h2>Comparable Sales</h2>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:10px;">All comps are HI or similar industrial-zoned land sales in Cumberland County. Notes reflect qualitative context; no mathematical appraiser-style adjustments have been applied.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Comp</th>
+        <th>Sale Date</th>
+        <th style="text-align:right;">Sale Price</th>
+        <th style="text-align:right;">Acres</th>
+        <th style="text-align:right;">$/Acre</th>
+        <th>Zoning / Notes</th>
+      </tr>
+    </thead>
+    <tbody id="compsBody"></tbody>
+  </table>
+
+  <h3 style="margin-top:16px;">Application to Subject</h3>
+  <p><strong>408 S Racepath St</strong> is the strongest comparable: same street, HI zoning, arms-length, 2024 sale. At 0.75 acres and $300,000/acre it is smaller and likely commands a size premium the subject cannot fully match; a downward adjustment is appropriate. <strong>327 E Jenkins St</strong> (2.0 ac, HI, $104,500/acre) and <strong>408 Pine St</strong> (2.97 ac, HI, $67,340/acre) bracket the subject from below given their larger sizes and lower $/acre. The <strong>3100 Murchison Rd</strong> sale ($299,800/acre) is noted as a condemnation/DOT acquisition and is excluded from the central opinion range as potentially non-market. The <strong>908 North St</strong> sale ($389,091/acre, LI zoning, 1.1 ac) provides an upper-bound reference but warrants a downward adjustment for superior access/exposure and LI vs. HI context.</p>
+  <p>Weighing these indicators, a price opinion in the range of <strong>$350,000&ndash;$425,000</strong> (&plusmn;$196,629&ndash;$238,764/acre) is supportable, with a recommended list price of <strong>$390,000</strong> (~$219,101/acre).</p>
+
+  <div class="footer">
+    <div class="small"><strong>Grant-Murray Real Estate, LLC</strong><br>910.861.0449 | patrick@grantmurrayre.com | NC #231098</div>
+    <div class="small" style="text-align:right;"><strong>Prepared For:</strong> <span id="preparedForFooter3">Cumberland County</span><br>Page 3</div>
+  </div>
+</div>
+<!-- END PAGE 3 -->
+
+
+<script>
+const DEFAULTS = {
+  bpoType: "Sale",
+  preparedFor: "Cumberland County",
+  siteAcres: 1.78,
+  indicatedPerAcre: 219101,
+  recommendedListPrice: 390000,
+  rangeLow: 350000,
+  rangeHigh: 425000,
+};
+
+const comps = [
+  {
+    name: "408 S Racepath St",
+    sale_date: "06/17/2024",
+    sale_price: 225000,
+    acres: 0.75,
+    psf: 300000,
+    zoning: "HI",
+    sale_type: "Arms Length",
+    notes: "Same street as subject; HI zoning; 4,800 SF bldg; arms-length resale. Smaller size commands a premium &mdash; apply downward size adjustment to subject. <strong>Primary comp.</strong>"
+  },
+  {
+    name: "327 E Jenkins St",
+    sale_date: "12/11/2024",
+    sale_price: 209000,
+    acres: 2.0,
+    psf: 104500,
+    zoning: "HI",
+    sale_type: "Arms Length",
+    notes: "HI zoning; 2.0 acres; 3,192 SF warehouse; arms-length resale w/financing. Similar size bracket to subject. Strong secondary comp for lower end of range."
+  },
+  {
+    name: "408 Pine St",
+    sale_date: "04/29/2025",
+    sale_price: 200000,
+    acres: 2.97,
+    psf: 67340,
+    zoning: "HI (Heavy I)",
+    sale_type: "Arms Length",
+    notes: "HI zoning; 2.97 acres; no improvements. Larger tract &mdash; size discount reflected in low $/acre. Sets floor for subject range."
+  },
+  {
+    name: "410 Pine St",
+    sale_date: "04/29/2025",
+    sale_price: 280000,
+    acres: 3.42,
+    psf: 81871,
+    zoning: "HI (Heavy I)",
+    sale_type: "Arms Length",
+    notes: "HI zoning; 3.42 acres; no improvements. Same buyer/date as 408 Pine. Larger tract; supports lower $/acre floor."
+  },
+  {
+    name: "908 North St",
+    sale_date: "08/27/2025",
+    sale_price: 428000,
+    acres: 1.1,
+    psf: 389091,
+    zoning: "LI",
+    sale_type: "Arms Length",
+    notes: "LI (Light Industrial) zoning; 1.1 acres; no improvements; arms-length resale. Superior exposure/access vs. subject; LI vs. HI. Useful as upper-bound indicator with downward adjustment."
+  },
+  {
+    name: "3100 Murchison Rd",
+    sale_date: "06/18/2025",
+    sale_price: 449700,
+    acres: 1.5,
+    psf: 299800,
+    zoning: "HI",
+    sale_type: "Arms Length (DOT)",
+    notes: "HI zoning; 1.5 ac; 6,487 SF bldg; purchased by NCDOT &mdash; likely condemnation/ROW acquisition. Use with caution; may not reflect true market price."
+  }
+];
+
+function toNumber(val) {
+  if (val === null || val === undefined) return NaN;
+  if (typeof val === "number") return val;
+  return Number(String(val).replace(/[^0-9.-]/g, "")) || NaN;
+}
+function fmt0(n) {
+  const num = toNumber(n);
+  return isFinite(num) ? num.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}) : "";
+}
+function fmtN2(n) {
+  const num = toNumber(n);
+  return isFinite(num) ? num.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}) : "";
+}
+
+function setPreparedFor(name) {
+  const safe = (name||"").trim() || DEFAULTS.preparedFor;
+  ["preparedFor","preparedFor2","preparedFor3","preparedForFooter","preparedForFooter2","preparedForFooter3"]
+    .forEach(id => { const el = document.getElementById(id); if(el) el.textContent = safe; });
+}
+function setBpoType(t) {
+  const el = document.getElementById("bpoTypeLabel");
+  if(el) el.textContent = (t||DEFAULTS.bpoType).trim();
+}
+
+function buildCompsTable() {
+  const tbody = document.getElementById("compsBody");
+  tbody.innerHTML = "";
+  comps.forEach(c => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><strong>${c.name}</strong></td>
+      <td>${c.sale_date}</td>
+      <td class="td-num">${fmt0(c.sale_price)}</td>
+      <td class="td-num">${fmtN2(c.acres)}</td>
+      <td class="td-num">${fmt0(c.psf)}</td>
+      <td>
+        <span class="pill">${c.zoning}</span>
+        <span class="pill" style="margin-left:4px;border-color:${c.sale_type.includes('DOT')?'rgba(180,100,0,.4)':'rgba(11,107,58,.3)'};background:${c.sale_type.includes('DOT')?'rgba(255,200,100,.1)':'rgba(11,107,58,.06)'};color:${c.sale_type.includes('DOT')?'#7a4000':'var(--green)'}">${c.sale_type}</span>
+        <div style="margin-top:6px;">${c.notes}</div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function recalc() {
+  const ppa = toNumber(document.getElementById("indicatedPerAcre").value);
+  const acres = DEFAULTS.siteAcres;
+  const indicated = isFinite(ppa) ? ppa * acres : DEFAULTS.indicatedPerAcre * acres;
+  document.getElementById("indicatedPrice").value = fmt0(indicated);
+
+  const listInput = document.getElementById("recommendedListPrice");
+  const lv = toNumber(listInput.value);
+  if (isFinite(lv)) {
+    listInput.value = fmt0(lv);
+    document.getElementById("opinionPriceDisplay").textContent = fmt0(lv);
+  }
+  document.getElementById("opinionRangeDisplay").textContent =
+    `Suggested range: ${fmt0(DEFAULTS.rangeLow)} \u2013 ${fmt0(DEFAULTS.rangeHigh)}`;
+}
+
+function editBpoType() {
+  const t = prompt("BPO Type (Sale, Lease, Both):", document.getElementById("bpoTypeLabel").textContent || DEFAULTS.bpoType);
+  if (t !== null) setBpoType(t);
+}
+
+function resetToDefaults() {
+  setPreparedFor(DEFAULTS.preparedFor);
+  setBpoType(DEFAULTS.bpoType);
+  document.getElementById("indicatedPerAcre").value = DEFAULTS.indicatedPerAcre;
+  document.getElementById("recommendedListPrice").value = fmt0(DEFAULTS.recommendedListPrice);
+  document.getElementById("opinionPriceDisplay").textContent = fmt0(DEFAULTS.recommendedListPrice);
+  recalc();
+}
+
+(function init() {
+  setPreparedFor(DEFAULTS.preparedFor);
+  setBpoType(DEFAULTS.bpoType);
+  buildCompsTable();
+  document.getElementById("recommendedListPrice").value = fmt0(DEFAULTS.recommendedListPrice);
+  document.getElementById("opinionPriceDisplay").textContent = fmt0(DEFAULTS.recommendedListPrice);
+  document.getElementById("indicatedPerAcre").addEventListener("input", recalc);
+  document.getElementById("recommendedListPrice").addEventListener("blur", recalc);
+  document.getElementById("recommendedListPrice").addEventListener("input", () => {
+    const v = toNumber(document.getElementById("recommendedListPrice").value);
+    if (isFinite(v)) document.getElementById("opinionPriceDisplay").textContent = fmt0(v);
+  });
+  recalc();
+})();
+</script>
+</body>
+</html>
